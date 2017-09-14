@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>douban</title>
+	<style type="text/css">
+	.comm{display: block;width: 10%;height: 30px;border-radius: 10px;box-shadow: 2px 2px 5px #ccc;position: absolute;left:35%;top: 60px; line-height: 30px;text-align: center;color: #666;text-decoration: none;background-color: #eee;}
+	#baidu{left: 50%;}
+	#q {    
+		display: block;
+	    width: 25%;
+	    height: 30px;
+	    padding: 5px;
+	    border: 1px solid #f90;
+	    font-size: 16px;
+	    position: absolute;
+	    top: 150px;
+	    left: 35%;
+    }
+    #btn{
+    	width: 70px;height: 30px;background-color: #f90;border-radius: 10px;position: absolute;top: 155px;left: 63%;
+    }
+    #list{width: 100%;position: absolute;top: 270px;margin: 0 auto;}
+    /*hr{position: absolute;top: 160px; display: block;}*/
+	dl {border-bottom: 1px dotted #000;}
+	dt {font-weight: bold;}
+	#msg{position: absolute;display: block;top:250px;margin: 0; text-align: center;}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		
+       function naro(data){
+
+       	  var oMsg = document.getElementById('msg');
+       	  var oList = document.getElementById('list');
+         console.log(data)
+
+
+       	  oMsg.innerHTML = data.title.$t + ' : ' + data['opensearch:totalResults'].$t;
+
+       	  var aEntry = data.entry;
+       	  var html = '';
+       	  for (var i=0; i<aEntry.length; i++) {
+
+       	  	html += '<dl><dt>'+ aEntry[i].title.$t +'</dt><dd><img src="'+ aEntry[i].link[2]['@href'] +'" /></dd></dl>';
+
+       	  }
+
+       	  oList.innerHTML = html;
+
+       	         
+       }
+
+       window.onload = function(){
+       	var oQ = document.getElementById('q');
+       	var oBtn = document.getElementById('btn');
+       	var oMsg = document.getElementById('msg');
+       	oBtn.onclick = function(){
+       		if (oQ.value !='') {
+       			var oScript = document.createElement('script');
+       			oScript.src = 'http://api.douban.com/book/subjects?q='+oQ.value+'&alt=xd&callback=naro&max-results=50';
+       			//设置每页最多显示50个
+       			document.body.appendChild(oScript);
+       		}
+
+       	}  
+
+       }
+
+	</script>
+	  <a href="index.html" id="baidu" class="comm">百度搜索~</a>
+      <a href="douban.html" class="comm">豆瓣检索~</a>
+
+      <input type="text" id="q" />
+      <input type="button" id="btn" value="搜索" />
+	  <p id="msg"></p>
+	  <div id="list"></div>
+</body>
+</html>

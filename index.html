@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>baidu搜索</title>
+	<style type="text/css">
+		#text {display:block;width: 25%; height: 30px; padding: 5px; border:1px solid #f90; font-size: 16px;position: absolute;top: 150px;left: 35%;}
+		#ul1 {border:1px solid #f90; width: 25.5%; margin:0;padding: 0;position: absolute;top: 190px;left: 35%;display: none;list-style: none;}
+		li>a { line-height: 30px; padding: 5px; text-decoration: none; color: black; display: block;}
+		li>a:hover{ background: #f90; color: white; }
+    .comm{display: block;width: 10%;height: 30px;border-radius: 10px;box-shadow: 2px 2px 5px #ccc;position: absolute;left:35%;top: 60px; line-height: 30px;text-align: center;color: #666;text-decoration: none;background-color: #eee;}
+    #baidu{left: 50%;}
+	</style>
+</head>
+<body>
+	<input type="text" name="" id="text">
+	<ul id="ul1"></ul>
+  <a href="index.html" id="baidu" class="comm">百度搜索~</a>
+  <a href="douban.html" class="comm">豆瓣检索~</a>
+  
+	<script type="text/javascript">
+
+
+     function naro(data){
+     	var oUl = document.getElementById('ul1');
+     	var html = '';
+     	if ( data.s.length ) {
+     		oUl.style.display = 'block'
+            for (var i = 0; i < data.s.length; i++) {
+            	html+='<li><a target ="_blank" href="http://www.baidu.com/s?wd='+data.s[i]+'">'+data.s[i]+'</a></li>';
+            	
+            }
+            oUl.innerHTML = html;
+     	}
+     	else{
+     		oUl.style.display = 'none';
+     	}
+
+     }
+
+		window.onload = function(){
+			var oText=document.getElementById('text');
+			var oUl = document.getElementById('ul1');
+
+			oText.onkeyup = function(){
+               if (oText.value !="") {
+                 var oScript = document.createElement('script');
+                 oScript.src = 'http://suggestion.baidu.com/su?wd='+this.value+'&cb=naro';
+                 document.body.appendChild(oScript);
+
+               }
+               else{
+                  oUl.style.display = "none";
+               }
+			}
+
+		}
+	</script>
+</body>
+</html>
