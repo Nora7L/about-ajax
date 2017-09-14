@@ -59,7 +59,7 @@
        	oBtn.onclick = function(){
        		if (oQ.value !='') {
        			var oScript = document.createElement('script');
-       			oScript.src = 'http://api.douban.com/book/subjects?q='+oQ.value+'&alt=xd&callback=naro&max-results=50';
+       			oScript.src = 'api.douban.com/book/subjects?q='+oQ.value+'&alt=xd&callback=naro&max-results=50';
        			//设置每页最多显示50个
        			document.body.appendChild(oScript);
        		}
